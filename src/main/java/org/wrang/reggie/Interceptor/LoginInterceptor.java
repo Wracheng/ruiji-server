@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.wrang.reggie.common.BaseContext;
 import org.wrang.reggie.common.R;
 
 import javax.servlet.http.Cookie;
@@ -17,6 +18,7 @@ import java.util.Arrays;
  * @author Mr.Wang
  * @version 1.0
  * @since 1.8
+ * 定义登录拦截器，检查用户有没有登录
  */
 @Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
@@ -25,6 +27,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Token");
         log.info(token);
         if(token != null){
+            // 保存到线程中
+            BaseContext.setThreadLocal(Long.valueOf(token));
             // 还有过期校验
             return true;
         }

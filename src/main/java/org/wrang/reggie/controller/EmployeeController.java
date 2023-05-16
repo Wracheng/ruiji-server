@@ -51,6 +51,7 @@ public class EmployeeController {
         if (emp.getStatus() == 0){
             return R.error("您已被禁用");
         }
+
         // 返回token,暂时token用登录的Id代替
         return R.success(emp);
     }
@@ -77,12 +78,8 @@ public class EmployeeController {
     private R addEmployee(@RequestBody Employee employee,HttpServletRequest request){
         // 初始密码123456，并加密
         String password = DigestUtils.md5DigestAsHex("123456".getBytes());
-        // 获取缓存的登录的人的id
-        // Long loginId = (Long) request.getSession().getAttribute("employee");
         // 处理需要额外处理的参数
         employee.setPassword(password);
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
         employee.setCreateUser(Long.valueOf(1));
         employee.setUpdateUser(Long.valueOf(1));
         // mybatisPlus 默认是雪花算法生成id，可通过yml中id-type改变id生成策略
@@ -93,7 +90,6 @@ public class EmployeeController {
 
     @PutMapping
     private R updateEmployee(@RequestBody Employee employee,HttpServletRequest request){
-        employee.setUpdateTime(LocalDateTime.now());
         employee.setUpdateUser(Long.valueOf(1));
         employeeService.updateById(employee);
         return R.success("更新成功");

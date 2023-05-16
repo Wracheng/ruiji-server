@@ -14,18 +14,15 @@ import org.wrang.reggie.Interceptor.LoginInterceptor;
  * @author Mr.Wang
  * @version 1.0
  * @since 1.8
+ * 拦截器装配
  */
 @Slf4j
 @Configuration
-public class LoginConfig implements WebMvcConfigurer {
+public class myInterceptors implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // PathPatterns 是请求前缀，需要排除静态资源，使之不被拦截，当然也可用统一前缀的方式方便排除，可以在配置文件配置spring.mvc.static-path-pattern=/static/**，然后排除/static/**这一个就行了
-        registry.addInterceptor(interceptor()).addPathPatterns("/**").excludePathPatterns("/","/css/**","/fonts/**","/images/**","/js/**","/employee/login");
-    }
-    @Bean
-    public LoginInterceptor interceptor(){
-        return new LoginInterceptor();
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/css/**","/fonts/**","/images/**","/js/**","/employee/login");
     }
 
 }
