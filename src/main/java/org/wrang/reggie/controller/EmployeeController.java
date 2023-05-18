@@ -71,6 +71,7 @@ public class EmployeeController {
         queryWrapper.like(StringUtils.isNotEmpty(name),Employee::getName,name);
         //添加排序条件 （这里根据更新时间排序）
         queryWrapper.orderByDesc(Employee::getUpdateTime);
+        // mysqlPlus执行分页并带有过滤条件的sql，把结果装到分页构造器中
         employeeService.page(pageInfo,queryWrapper);
         return R.success(pageInfo);
     }

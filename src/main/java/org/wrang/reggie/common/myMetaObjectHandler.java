@@ -1,7 +1,9 @@
 package org.wrang.reggie.common;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +12,10 @@ import java.time.LocalDateTime;
  * @version 1.0
  * @since 1.8
  * 用来对实体类一些通用的更新数据进行配置，配合实体类中@TableField注解使用
+ * 一定要加@Component，不然不起作用
  */
+@Slf4j
+@Component
 public class myMetaObjectHandler implements MetaObjectHandler {
     // 添加时要更新的字段
     @Override

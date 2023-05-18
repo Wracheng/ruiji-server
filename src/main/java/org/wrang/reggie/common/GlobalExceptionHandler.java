@@ -3,6 +3,7 @@ package org.wrang.reggie.common;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.wrang.reggie.common.Exption.MyCustomException;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
@@ -31,5 +32,9 @@ public class GlobalExceptionHandler {
             return R.error(filed + "不能为空");
         }
         return R.error("未知错误");
+    }
+    @ExceptionHandler(MyCustomException.class)
+    private R<String>  excetionHandler(MyCustomException ex){
+        return R.error(ex.getMessage());
     }
 }
