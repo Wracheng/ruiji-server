@@ -3,7 +3,6 @@ package org.wrang.reggie.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.wrang.reggie.common.R;
 import org.wrang.reggie.dto.DishDto;
@@ -39,6 +38,7 @@ public class DishController {
         wrapper.orderByDesc(Dish::getCreateTime);
         dishService.page(pager,wrapper);
         return R.success(pager);
+
     }
 
 
