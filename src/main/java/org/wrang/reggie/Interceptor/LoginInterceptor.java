@@ -34,7 +34,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(JSON.toJSONString(R.error("NOTLOGIN")));
+        // 暂时不手动返回提示
+        // response.getWriter().write(JSON.toJSONString(R.error("NOTLOGIN")));
         // 拦截器preHandle返回false，前端要报跨域错误的
         return true;
     }
