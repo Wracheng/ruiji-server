@@ -12,4 +12,7 @@ import org.wrang.reggie.entity.Dish;
  */
 public interface DishService extends IService<Dish> {
     void addDish(DishDto dishDto);
+    // 根据菜品id查询口味信息
+    DishDto getByIdWidthFlavor(Long id);
+    void updateDish(DishDto dishDto);
 }

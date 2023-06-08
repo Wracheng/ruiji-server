@@ -41,7 +41,7 @@ public class DishController {
         Page<Dish> pager = new Page<>(page,pageSize);
         Page<DishDto> pagerdto = new Page<>(page,pageSize);
         LambdaQueryWrapper<Dish> wrapper = new LambdaQueryWrapper<>();
-        // 第一个参数如果是false，那么这like语句相当于没写
+        // 第一个参数如果是false，那么这like语句相当于没写,等同于if(name != null){wrapper.like(true,Dish::getName,name);}
         wrapper.like(name != null,Dish::getName,name);
         // 根据创建时间倒序
         wrapper.orderByDesc(Dish::getCreateTime);
@@ -61,6 +61,18 @@ public class DishController {
         return R.success(pagerdto);
 
     }
+    // 查询菜品详情
+    @GetMapping("/{id}")
+    public R<DishDto> getInfo(@PathVariable Long id){
+        DishDto dishDto = dishService.getByIdWidthFlavor(id);
+        return R.success(dishDto);
+    }
 
+    // 修改菜品信息
+    @PutMapping
+    public R<String> updateDish(@RequestBody DishDto dishdto){
+        dishService.updateDish(dishdto);
+        return R.success("更新成功");
+    }
 
 }
